@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { DashboardContext } from "../../../context/DashboardContext";
+import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
 
 const FileUpload = () => {
   const { setFiles, isCollapsed, setIsCollapsed } =
@@ -18,16 +19,29 @@ const FileUpload = () => {
 
   return (
     <div
-      className={`h-full border-r dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4 transition-all duration-300 ${
-        isCollapsed ? "w-0 p-0" : "w-1/5"
+      className={`relative h-full bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-700 transition-all duration-300 ${
+        isCollapsed ? "w-0" : "w-1/5 min-w-[220px] max-w-[280px]"
       }`}
     >
+      {/* Collapse / Expand Button */}
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="absolute top-4 -right-3 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+      >
+        {isCollapsed ? (
+          <ChevronRight className="h-4 w-4  text-gray-800 dark:text-gray-200" />
+        ) : (
+          <ChevronLeft className="h-4 w-4 text-gray-800 dark:text-gray-200" />
+        )}
+      </button>
+
       {!isCollapsed && (
-        <div className="flex flex-col gap-4">
+        <div className="flex h-full flex-col gap-4 p-4">
           <Button
             onClick={() => fileInputRef.current.click()}
-            className="w-full"
+            className="w-full flex items-center gap-2"
           >
+            <Upload className="h-4 w-4" />
             Upload File
           </Button>
           <input
@@ -37,24 +51,13 @@ const FileUpload = () => {
             onChange={handleFileChange}
           />
 
-          <Button
-            variant="secondary"
-            onClick={() => setIsCollapsed(true)}
-            className="w-full"
-          >
-            Collapse
-          </Button>
+          {/* Sidebar content placeholder */}
+          <div className="flex-1 overflow-y-auto">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              JPG, PNG, PDF files supported
+            </p>
+          </div>
         </div>
-      )}
-
-      {isCollapsed && (
-        <Button
-          variant="secondary"
-          onClick={() => setIsCollapsed(false)}
-          className="absolute top-4 left-4"
-        >
-          Expand
-        </Button>
       )}
     </div>
   );

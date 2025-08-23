@@ -7,9 +7,8 @@ const Dashboard = () => {
   try {
     return (
       <DashboardProvider>
-        <div className="flex h-[calc(100vh-4rem)]">
-          {" "}
-          {/* minus header height */}
+        <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
+          {/* 100vh minus header (h-16 = 4rem) */}
           <FileUpload />
           <Workspace />
         </div>

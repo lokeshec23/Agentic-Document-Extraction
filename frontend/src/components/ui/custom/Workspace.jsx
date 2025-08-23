@@ -6,16 +6,15 @@ const Workspace = () => {
 
   return (
     <div
-      className={`h-full transition-all duration-300 ${
-        isCollapsed ? "w-full" : "w-4/5"
-      } bg-white dark:bg-gray-950 p-6`}
+      className={`h-full flex-1 transition-all duration-300 bg-white dark:bg-gray-950 p-6 overflow-y-auto`}
     >
       <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
         Workspace
       </h2>
+
       {files.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400">
-          No files uploaded yet.
+          Drop a file here to get started.
         </p>
       ) : (
         <ul className="space-y-2">
