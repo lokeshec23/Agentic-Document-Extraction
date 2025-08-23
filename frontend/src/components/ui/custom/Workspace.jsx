@@ -1,33 +1,27 @@
 import React, { useContext } from "react";
 import { DashboardContext } from "../../../context/DashboardContext";
-
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import PdfViewer from "./PdfViewer";
+import ExtractionPanel from "./ExtractionPanel";
 const Workspace = () => {
   const { files, isCollapsed } = useContext(DashboardContext);
 
   return (
-    <div
-      className={`h-full flex-1 transition-all duration-300 bg-white dark:bg-gray-950 p-6 overflow-y-auto`}
-    >
-      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-        Workspace
-      </h2>
+    <div className="h-full w-full overflow-hidden">
+      <PanelGroup direction="horizontal">
+        {/* Left Panel - PDF Viewer */}
+        <Panel defaultSize={50} minSize={25}>
+          <PdfViewer />
+        </Panel>
 
-      {files.length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400">
-          Drop a file here to get started.
-        </p>
-      ) : (
-        <ul className="space-y-2">
-          {files.map((file, idx) => (
-            <li
-              key={idx}
-              className="p-2 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200"
-            >
-              {file.name}
-            </li>
-          ))}
-        </ul>
-      )}
+        {/* Resize Handle */}
+        <PanelResizeHandle className="w-1 bg-gray-300 dark:bg-gray-700 cursor-col-resize" />
+
+        {/* Right Panel - Extraction */}
+        <Panel defaultSize={50} minSize={25}>
+          <ExtractionPanel />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 };
