@@ -4,10 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Copy, Download } from "lucide-react";
 
 const ExtractionPanel = () => {
-  const [markdown, setMarkdown] = useState(
-    `# Example Markdown\n\n- Item 1\n- Item 2`
-  );
-  const [jsonData, setJsonData] = useState({ name: "Invoice", total: 1234 });
+  const [markdown] = useState(`# Example Markdown\n\n- Item 1\n- Item 2`);
+  const [jsonData] = useState({ name: "Invoice", total: 1234 });
   const [chat, setChat] = useState([
     { role: "assistant", content: "Hi! Ask me about this PDF." },
   ]);
@@ -45,7 +43,7 @@ const ExtractionPanel = () => {
     setChat(newChat);
     setInput("");
 
-    // Fake AI response
+    // Mock AI response
     setTimeout(() => {
       setChat((prev) => [
         ...prev,
@@ -55,47 +53,64 @@ const ExtractionPanel = () => {
   };
 
   return (
-    <Tabs defaultValue="parse" className="h-full flex flex-col">
+    <Tabs defaultValue="parse" className="h-full flex flex-col p-2">
+      {/* Main Tabs: Parse & Chat */}
       <TabsList className="flex">
         <TabsTrigger value="parse">Parse</TabsTrigger>
         <TabsTrigger value="chat">Chat</TabsTrigger>
       </TabsList>
 
       {/* Parse Section */}
-      <TabsContent value="parse" className="flex-1 p-4 overflow-y-auto">
-        <Tabs defaultValue="markdown">
-          <TabsList>
-            <TabsTrigger value="markdown">Markdown</TabsTrigger>
-            <TabsTrigger value="json">JSON</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="markdown" className="space-y-2">
-            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded">
-              <pre className="whitespace-pre-wrap">{markdown}</pre>
-            </div>
+      <TabsContent
+        value="parse"
+        className="flex-1 flex flex-col p-4 overflow-y-auto"
+      >
+        <Tabs defaultValue="markdown" className="flex-1 flex flex-col">
+          {/* Sub Tabs with Action Icons */}
+          <div className="flex items-center justify-between">
+            <TabsList>
+              <TabsTrigger value="markdown">Markdown</TabsTrigger>
+              <TabsTrigger value="json">JSON</TabsTrigger>
+            </TabsList>
             <div className="flex gap-2">
-              <Button onClick={() => handleCopy(markdown)}>
-                <Copy className="h-4 w-4" /> Copy
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() =>
+                  document.querySelector('[data-state="active"]')
+                    .textContent === "Markdown"
+                    ? handleCopy(markdown)
+                    : handleCopy(JSON.stringify(jsonData, null, 2))
+                }
+              >
+                <Copy className="h-4 w-4" />
               </Button>
-              <Button onClick={() => handleDownload(markdown, "md")}>
-                <Download className="h-4 w-4" /> Download
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() =>
+                  document.querySelector('[data-state="active"]')
+                    .textContent === "Markdown"
+                    ? handleDownload(markdown, "md")
+                    : handleDownload(jsonData, "json")
+                }
+              >
+                <Download className="h-4 w-4" />
               </Button>
+            </div>
+          </div>
+
+          {/* Markdown Content */}
+          <TabsContent value="markdown" className="flex-1 mt-2">
+            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto">
+              <pre className="whitespace-pre-wrap">{markdown}</pre>
             </div>
           </TabsContent>
 
-          <TabsContent value="json" className="space-y-2">
-            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+          {/* JSON Content */}
+          <TabsContent value="json" className="flex-1 mt-2">
+            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto">
               <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => handleCopy(JSON.stringify(jsonData, null, 2))}
-              >
-                <Copy className="h-4 w-4" /> Copy
-              </Button>
-              <Button onClick={() => handleDownload(jsonData, "json")}>
-                <Download className="h-4 w-4" /> Download
-              </Button>
             </div>
           </TabsContent>
         </Tabs>

@@ -5,7 +5,6 @@ import PdfViewer from "./PdfViewer";
 import ExtractionPanel from "./ExtractionPanel";
 const Workspace = () => {
   const { files, isCollapsed } = useContext(DashboardContext);
-
   return (
     <div className="h-full w-full overflow-hidden">
       <PanelGroup direction="horizontal">
@@ -14,13 +13,15 @@ const Workspace = () => {
           <PdfViewer />
         </Panel>
 
-        {/* Resize Handle */}
-        <PanelResizeHandle className="w-1 bg-gray-300 dark:bg-gray-700 cursor-col-resize" />
+        {files.length && (
+          <>
+            <PanelResizeHandle className="w-1 bg-gray-300 dark:bg-gray-700 cursor-col-resize" />
 
-        {/* Right Panel - Extraction */}
-        <Panel defaultSize={50} minSize={25}>
-          <ExtractionPanel />
-        </Panel>
+            <Panel defaultSize={50} minSize={25}>
+              <ExtractionPanel />
+            </Panel>
+          </>
+        )}
       </PanelGroup>
     </div>
   );
