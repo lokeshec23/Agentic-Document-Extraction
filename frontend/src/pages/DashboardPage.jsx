@@ -1,13 +1,23 @@
+import React from "react";
+import FileUpload from "../components/ui/custom/FileUpload";
+import Workspace from "../components/ui/custom/Workspace";
+import { DashboardProvider } from "../context/DashboardContext";
+
 const Dashboard = () => {
   try {
     return (
-      <div className="flex h-full items-center justify-center bg-gray-50">
-        <h1 className="text-3xl font-bold">Welcome to Dashboard 🎉</h1>
-      </div>
+      <DashboardProvider>
+        <div className="flex h-[calc(100vh-4rem)]">
+          {" "}
+          {/* minus header height */}
+          <FileUpload />
+          <Workspace />
+        </div>
+      </DashboardProvider>
     );
   } catch (error) {
     console.error("Error loading dashboard:", error);
-    return <p>Something went wrong!</p>;
+    return <p>Error loading dashboard</p>;
   }
 };
 
