@@ -13,12 +13,14 @@ const ExtractionPanel = () => {
       </TabsList>
 
       {/* Render Panels */}
-      <TabsContent value="parse" className="flex-1 flex flex-col p-2">
-        <ParsePanel />
-      </TabsContent>
-      <TabsContent value="chat" className="flex-1 flex flex-col p-2">
-        <ChatPanel />
-      </TabsContent>
+      <div className="max-h-[85dvh]">
+        <TabsContent value="parse" className="flex-1 flex flex-col p-2">
+          <ParsePanel />
+        </TabsContent>
+        <TabsContent value="chat" className="flex-1 flex flex-col p-2">
+          <ChatPanel />
+        </TabsContent>
+      </div>
     </Tabs>
   );
 };

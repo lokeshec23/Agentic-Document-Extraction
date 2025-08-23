@@ -1,15 +1,22 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import Dashboard from "./pages/DashboardPage";
+import React, { Suspense, lazy } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import ProtectedRoute from "./context/ProtectedRoute";
-import Layout from "./components/ui/custom/Layout";
+import Loader from "./components/ui/custom/Loader"; // global spinner
 
-const App = () => {
+// Lazy load routes
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+const Dashboard = lazy(() => import("./pages/DashboardPage"));
+
+function App() {
   return (
     <Router>
-      <Layout>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
@@ -21,10 +28,11 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-      </Layout>
+      </Suspense>
     </Router>
   );
-};
+}
 
 export default App;

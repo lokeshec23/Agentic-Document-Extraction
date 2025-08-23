@@ -1,23 +1,26 @@
-import React from "react";
-import FileUpload from "../components/ui/custom/FileUpload";
-import Workspace from "../components/ui/custom/Workspace";
+import React, { Suspense, lazy } from "react";
 import { DashboardProvider } from "../context/DashboardContext";
+import Loader from "../components/ui/custom/Loader";
+import Header from "../components/ui/custom/Header";
+import FileUpload from "../components/ui/custom/FileUpload";
+
+// Lazy load Workspace (contains PdfViewer + ExtractionPanel)
+const Workspace = lazy(() => import("../components/ui/custom/Workspace"));
 
 const Dashboard = () => {
-  try {
-    return (
-      <DashboardProvider>
-        <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
-          {/* 100vh minus header (h-16 = 4rem) */}
+  return (
+    <DashboardProvider>
+      <div className="flex flex-col h-screen w-full overflow-hidden">
+        <Header />
+        <div className="flex flex-1">
           <FileUpload />
-          <Workspace />
+          <Suspense fallback={<Loader />}>
+            <Workspace />
+          </Suspense>
         </div>
-      </DashboardProvider>
-    );
-  } catch (error) {
-    console.error("Error loading dashboard:", error);
-    return <p>Error loading dashboard</p>;
-  }
+      </div>
+    </DashboardProvider>
+  );
 };
 
 export default Dashboard;

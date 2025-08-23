@@ -24,7 +24,10 @@ const ChatPanel = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col p-4">
+    <div
+      className="flex-1 flex flex-col p-4 max-h-[85dvh]"
+      // style={{ maxHeight: "85dvh !important" }}
+    >
       <div className="flex-1 overflow-y-auto space-y-2">
         {chat.map((msg, idx) => (
           <div

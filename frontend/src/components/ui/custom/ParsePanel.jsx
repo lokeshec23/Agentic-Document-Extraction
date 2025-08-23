@@ -71,19 +71,27 @@ const ParsePanel = () => {
         </div>
       </div>
 
+      {/* <div className="h-2 max-h-[85dvh]"> */}
       {/* Markdown Content */}
       <TabsContent value="markdown" className="flex-1 mt-2">
-        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto">
+        <div
+          className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto"
+          // style={{ maxHeight: "85dvh !important" }}
+        >
           <pre className="whitespace-pre-wrap">{markdown}</pre>
         </div>
       </TabsContent>
 
       {/* JSON Content */}
       <TabsContent value="json" className="flex-1 mt-2">
-        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto">
+        <div
+          className="bg-gray-100 dark:bg-gray-800 p-3 rounded h-full overflow-y-auto"
+          // style={{ maxHeight: "85dvh !important" }}
+        >
           <pre>{JSON.stringify(jsonData, null, 2)}</pre>
         </div>
       </TabsContent>
+      {/* </div> */}
     </Tabs>
   );
 };
