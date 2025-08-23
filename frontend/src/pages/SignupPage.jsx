@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,8 +9,12 @@ import { Link } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
 
-const LoginPage = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+const SignupPage = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -19,10 +23,10 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Logging in with: ", formData);
+      console.log("Signing up with: ", formData);
       // call API here...
     } catch (error) {
-      console.error("Login failed: ", error);
+      console.error("Signup failed: ", error);
     }
   };
 
@@ -37,18 +41,30 @@ const LoginPage = () => {
         <Card className="rounded-2xl shadow-xl">
           <CardHeader>
             <CardTitle className="text-center text-2xl font-bold">
-              Welcome Back
+              Create Account
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                {/* <Label htmlFor="name">Full Name</Label> */}
+                <InputField
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="John Doe (Name)"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <div>
                 {/* <Label htmlFor="email">Email</Label> */}
                 <InputField
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="you@example.com (Email)"
+                  placeholder="you@example.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -60,21 +76,21 @@ const LoginPage = () => {
                   id="password"
                   name="password"
                   type="password"
-                  placeholder="•••••••• (Password)"
+                  placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
               </div>
               <CustomButton type="submit" className="w-full">
-                Login
+                Sign Up
               </CustomButton>
             </form>
             <Separator className="my-4" />
             <p className="text-center text-sm text-gray-600">
-              Don’t have an account?{" "}
-              <Link to="/signup" className="text-blue-600 hover:underline">
-                Sign up
+              Already have an account?{" "}
+              <Link to="/" className="text-blue-600 hover:underline">
+                Login
               </Link>
             </p>
           </CardContent>
@@ -84,4 +100,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
