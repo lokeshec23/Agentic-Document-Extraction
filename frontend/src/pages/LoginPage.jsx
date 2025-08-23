@@ -28,7 +28,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen  justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+    <div className="flex h-full  items-center justify-center  p-4">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

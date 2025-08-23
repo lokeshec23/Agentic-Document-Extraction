@@ -36,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 shadow-md bg-white dark:bg-gray-900">
+    <header className="flex h-16 items-center justify-between px-6 shadow-md bg-white dark:bg-gray-900">
       {/* Left: App Name */}
       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
         Agentic Document Extraction
