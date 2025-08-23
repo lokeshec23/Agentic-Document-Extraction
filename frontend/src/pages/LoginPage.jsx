@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -21,13 +20,15 @@ const LoginPage = () => {
     try {
       console.log("Logging in with: ", formData);
       // call API here...
+      sessionStorage.setItem("authToken", "9361062252");
+      navigate("/dashboard"); // ✅ React Router navigation
     } catch (error) {
       console.error("Login failed: ", error);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+    <div className="flex min-h-screen  justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
