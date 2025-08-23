@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DashboardContext } from "@/context/DashboardContext";
 
 const ChatPanel = () => {
-  const [chat, setChat] = useState([
-    { role: "assistant", content: "Hi! Ask me about this PDF." },
-  ]);
+  const { chat, setChat } = useContext(DashboardContext);
   const [input, setInput] = useState("");
 
   const handleChatSubmit = (e) => {

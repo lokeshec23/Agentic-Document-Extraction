@@ -73,7 +73,7 @@ const PdfViewer = () => {
         <Document
           file={file}
           onLoadSuccess={onDocumentLoadSuccess}
-          className="p-4"
+          className="m-5"
         >
           <Page
             pageNumber={pageNumber}

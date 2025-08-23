@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Copy, Download } from "lucide-react";
+import { DashboardContext } from "@/context/DashboardContext";
 
 const ParsePanel = () => {
-  const [markdown] = useState(`# Example Markdown\n\n- Item 1\n- Item 2`);
-  const [jsonData] = useState({ name: "Invoice", total: 1234 });
+  const { markdown, jsonData } = useContext(DashboardContext);
+  const [activeTab, setActiveTab] = React.useState("markdown");
 
   const handleCopy = async (text) => {
     try {
@@ -33,7 +34,11 @@ const ParsePanel = () => {
   };
 
   return (
-    <Tabs defaultValue="markdown" className="flex-1 flex flex-col">
+    <Tabs
+      value={activeTab}
+      onValueChange={setActiveTab}
+      className="flex-1 flex flex-col"
+    >
       {/* Sub Tabs with Action Icons */}
       <div className="flex items-center justify-between">
         <TabsList>
@@ -45,8 +50,7 @@ const ParsePanel = () => {
             size="icon"
             variant="ghost"
             onClick={() =>
-              document.querySelector('[data-state="active"]').textContent ===
-              "Markdown"
+              activeTab === "markdown"
                 ? handleCopy(markdown)
                 : handleCopy(JSON.stringify(jsonData, null, 2))
             }
@@ -57,8 +61,7 @@ const ParsePanel = () => {
             size="icon"
             variant="ghost"
             onClick={() =>
-              document.querySelector('[data-state="active"]').textContent ===
-              "Markdown"
+              activeTab === "markdown"
                 ? handleDownload(markdown, "md")
                 : handleDownload(jsonData, "json")
             }
