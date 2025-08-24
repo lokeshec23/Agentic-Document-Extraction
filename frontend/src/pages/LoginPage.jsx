@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
-import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import useNotify from "../hooks/useNotify";
+
 const LoginPage = () => {
   const navigate = useNavigate();
+  const notify = useNotify();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -19,25 +21,28 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       if (!formData.email || !formData.password) {
-        alert("Please fill all the fields");
+        // notify("warning", "Missing fields", "Please fill all the fields.");
         return;
       }
-      console.log("Logging in with: ", formData);
-      // call API here...
+
       const response = await api.post("/auth/login", formData);
-      // Save token (you can also use cookies if more secure)
       const { access_token } = response.data;
       localStorage.setItem("authToken", access_token);
 
-      console.log("Login success, token:", access_token);
-      navigate("/dashboard"); // ✅ React Router navigation
+      // notify("success", "Login successful", "Redirecting to dashboard...");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login failed: ", error);
+      // notify(
+      //   "error",
+      //   "Login failed",
+      //   error.response?.data?.detail || "Invalid credentials"
+      // );
     }
   };
 
   return (
-    <div className="flex h-full  items-center justify-center  p-4">
+    <div className="flex h-full items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -52,30 +57,25 @@ const LoginPage = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                {/* <Label htmlFor="email">Email</Label> */}
-                <InputField
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com (Email)"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                {/* <Label htmlFor="password">Password</Label> */}
-                <InputField
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="•••••••• (Password)"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <InputField
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+
               <CustomButton type="submit" className="w-full">
                 Login
               </CustomButton>

@@ -8,11 +8,12 @@ import {
 import ProtectedRoute from "./context/ProtectedRoute";
 import Loader from "./components/ui/custom/Loader"; // global spinner
 import Header from "./components/ui/custom/Header";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
+// import LoginPage from "./pages/LoginPage";
+// import SignupPage from "./pages/SignupPage";
+// import { Toaster } from "./components/ui/";
 // Lazy load routes
-// const LoginPage = lazy(() => import("./pages/LoginPage"));
-// const SignupPage = lazy(() => import("./pages/SignupPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
 const Dashboard = lazy(() => import("./pages/DashboardPage"));
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             }
           />
           <Route path="*" element={<Navigate to="/login" />} />
+          {/* <Toaster /> */}
         </Routes>
       </Suspense>
     </Router>

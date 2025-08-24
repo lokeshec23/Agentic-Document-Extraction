@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
 import api from "../api/axios";
+import useNotify from "../hooks/useNotify";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+  const notify = useNotify();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -25,21 +25,25 @@ const SignupPage = () => {
     e.preventDefault();
     try {
       if (!formData.username || !formData.email || !formData.password) {
-        alert("Please fill all the fields");
+        // notify("warning", "Missing fields", "Please fill all the fields.");
         return;
       }
 
-      console.log("Signing up with: ", { username, email, password });
       const res = await api.post("/auth/signup", formData);
-      console.log("Signup response: ", res);
-      // localStorage.setItem("token", res.data.access_token);
+      // notify("success", "Signup successful", "Welcome! You can now log in.");
+      navigate("/");
     } catch (error) {
       console.error("Signup failed: ", error);
+      // notify(
+      //   "error",
+      //   "Signup failed",
+      //   error.response?.data?.detail || "Something went wrong"
+      // );
     }
   };
 
   return (
-    <div className="flex h-full items-center justify-center  p-4">
+    <div className="flex h-full items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -54,42 +58,34 @@ const SignupPage = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                {/* <Label htmlFor="name">Full Name</Label> */}
-                <InputField
-                  id="username"
-                  name="username"
-                  type="text"
-                  placeholder="John Doe (Name)"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                {/* <Label htmlFor="email">Email</Label> */}
-                <InputField
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                {/* <Label htmlFor="password">Password</Label> */}
-                <InputField
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <InputField
+                id="username"
+                name="username"
+                type="text"
+                placeholder="John Doe"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+
               <CustomButton type="submit" className="w-full">
                 Sign Up
               </CustomButton>
