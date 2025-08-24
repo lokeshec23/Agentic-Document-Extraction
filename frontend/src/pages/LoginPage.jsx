@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
 import { useNavigate } from "react-router-dom";
-
+import api from "../api/axios";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -18,9 +18,18 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!formData.email || !formData.password) {
+        alert("Please fill all the fields");
+        return;
+      }
       console.log("Logging in with: ", formData);
       // call API here...
-      sessionStorage.setItem("authToken", "9361062252");
+      const response = await api.post("/auth/login", formData);
+      // Save token (you can also use cookies if more secure)
+      const { access_token } = response.data;
+      localStorage.setItem("authToken", access_token);
+
+      console.log("Login success, token:", access_token);
       navigate("/dashboard"); // ✅ React Router navigation
     } catch (error) {
       console.error("Login failed: ", error);

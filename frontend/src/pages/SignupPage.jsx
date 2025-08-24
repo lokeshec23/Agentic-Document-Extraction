@@ -8,11 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
+import api from "../api/axios";
 
 const SignupPage = () => {
-  debugger;
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -24,8 +24,15 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Signing up with: ", formData);
-      // call API here...
+      if (!formData.username || !formData.email || !formData.password) {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      console.log("Signing up with: ", { username, email, password });
+      const res = await api.post("/auth/signup", formData);
+      console.log("Signup response: ", res);
+      // localStorage.setItem("token", res.data.access_token);
     } catch (error) {
       console.error("Signup failed: ", error);
     }
@@ -50,11 +57,11 @@ const SignupPage = () => {
               <div>
                 {/* <Label htmlFor="name">Full Name</Label> */}
                 <InputField
-                  id="name"
-                  name="name"
+                  id="username"
+                  name="username"
                   type="text"
                   placeholder="John Doe (Name)"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
                   required
                 />

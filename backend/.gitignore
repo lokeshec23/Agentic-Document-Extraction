@@ -1,0 +1,108 @@
+# ---- OS junk ----------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# ---- Node core --------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.*   # partial/backup files created by merges
+*.tgz
+.pnp.cjs
+.pnp.loader.mjs
+.pnp.data.json
+.pnpm-store/
+
+# ---- Env & secrets ----------------------------------------------
+.env
+.env.*
+!.env.example          # keep a template
+*.key
+*.pem
+
+# ---- Build artifacts --------------------------------------------
+dist/
+build/
+.out/
+.tmp/
+temp/
+tmp/
+.cache/
+.cache-loader/
+.esbuild/
+tsbuildinfo.tsbuildinfo
+*.tsbuildinfo
+
+# ---- TypeScript -------------------------------------------------
+# (tsc emits to dist/ typically; adjust if you emit elsewhere)
+*.d.ts
+*.d.ts.map
+
+# ---- Testing & coverage -----------------------------------------
+coverage/
+.nyc_output/
+.jest/
+jest-cache/
+jest-coverage/
+.tap/
+
+# ---- Linters / tooling caches -----------------------------------
+.eslintcache
+.stylelintcache
+.prettier-cache/
+.swc/
+.rpt2_cache/
+.cache/babel-loader/
+
+# ---- Logs & runtime artifacts -----------------------------------
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+pids/
+heapdump-*.heapsnapshot
+
+# pm2
+.pm2/
+
+# ---- Uploads / storage (if you save files locally) --------------
+uploads/
+storage/
+public/uploads/
+# If you need these in prod, consider whitelisting a .gitkeep:
+# !uploads/.gitkeep
+
+# ---- ORMs / DB tooling ------------------------------------------
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+prisma/*.sqlite
+prisma/migrations/*/README.md~  # temp
+# TypeORM
+ormconfig.json.local
+# Sequelize
+.sequelizerc
+sequelize-meta.json
+
+# ---- Docker / Compose local overrides ---------------------------
+docker-data/
+docker-volume/
+.docker/
+docker-compose.override.yml
+
+# ---- Editors / IDEs ---------------------------------------------
+.vscode/
+.idea/
+*.iml
+
+# ---- Misc -------------------------------------------------------
+# lockfiles are important for reproducible builds—DO NOT ignore them.
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Next-specific server output sometimes used in backends (rare)
+.next/
