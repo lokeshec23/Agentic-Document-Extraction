@@ -10,6 +10,7 @@ import InputField from "../components/ui/custom/InputField";
 import CustomButton from "../components/ui/custom/CustomButton";
 
 const SignupPage = () => {
+  debugger;
   const [formData, setFormData] = useState({
     name: "",
     email: "",

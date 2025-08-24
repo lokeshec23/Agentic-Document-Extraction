@@ -16,6 +16,7 @@ import ProtectedRoute from "./../../../context/ProtectedRoute";
 const Header = () => {
   const navigate = useNavigate();
   const [isDark, setIsDark] = React.useState(false);
+  const auth = sessionStorage.getItem("authToken"); // you can store JWT or simple flag
 
   const handleLogout = () => {
     try {
@@ -43,7 +44,7 @@ const Header = () => {
       </h3>
 
       {/* Right side is protected */}
-      <ProtectedRoute>
+      {auth && (
         <div className="flex items-center space-x-6">
           {/* Dark Mode Switch */}
           <div className="flex items-center space-x-2">
@@ -70,7 +71,7 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </ProtectedRoute>
+      )}
     </header>
   );
 };
