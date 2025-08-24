@@ -19,13 +19,20 @@ const Workspace = () => {
   }
 
   return (
-    <PanelGroup direction="horizontal" className="flex-1">
+    <PanelGroup
+      direction="horizontal"
+      className="flex-1 h-full overflow-hidden"
+    >
+      {/* Left Panel - PDF Viewer */}
       <Panel defaultSize={50} minSize={25}>
-        <Suspense fallback={<Loader />}>
-          <PdfViewer />
-        </Suspense>
+        <div className="h-full overflow-y-auto">
+          <Suspense fallback={<Loader />}>
+            <PdfViewer />
+          </Suspense>
+        </div>
       </Panel>
 
+      {/* Resize Handle */}
       <PanelResizeHandle
         className="w-1 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 
         dark:hover:bg-gray-600 cursor-col-resize transition-colors relative"
@@ -35,10 +42,13 @@ const Workspace = () => {
         </div>
       </PanelResizeHandle>
 
+      {/* Right Panel - Extraction */}
       <Panel defaultSize={50} minSize={25}>
-        <Suspense fallback={<Loader />}>
-          <ExtractionPanel />
-        </Suspense>
+        <div className="h-full overflow-y-auto">
+          <Suspense fallback={<Loader />}>
+            <ExtractionPanel />
+          </Suspense>
+        </div>
       </Panel>
     </PanelGroup>
   );
