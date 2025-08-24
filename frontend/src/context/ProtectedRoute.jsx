@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
   try {
-    const auth = localStorage.getItem("authToken"); // you can store JWT or simple flag
+    const auth = sessionStorage.getItem("authToken"); // you can store JWT or simple flag
     if (!auth) {
       return <Navigate to="/login" replace />;
     }

@@ -16,11 +16,11 @@ import ProtectedRoute from "./../../../context/ProtectedRoute";
 const Header = () => {
   const navigate = useNavigate();
   const [isDark, setIsDark] = React.useState(false);
-  const auth = localStorage.getItem("authToken"); // you can store JWT or simple flag
+  const auth = sessionStorage.getItem("authToken"); // you can store JWT or simple flag
 
   const handleLogout = () => {
     try {
-      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
       navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);

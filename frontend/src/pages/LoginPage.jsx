@@ -27,7 +27,7 @@ const LoginPage = () => {
 
       const response = await api.post("/auth/login", formData);
       const { access_token } = response.data;
-      localStorage.setItem("authToken", access_token);
+      sessionStorage.setItem("authToken", access_token);
 
       // notify("success", "Login successful", "Redirecting to dashboard...");
       navigate("/dashboard");
