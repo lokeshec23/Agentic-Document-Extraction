@@ -39,7 +39,7 @@ const Header = () => {
     <header className="flex h-16 items-center justify-between px-6 shadow-md bg-white dark:bg-gray-900">
       {/* Left: App Name */}
       <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-        DocLens
+        Agentic Document Extraction
       </h3>
 
       {/* Right side is protected */}

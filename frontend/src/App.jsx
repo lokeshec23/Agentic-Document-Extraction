@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import ProtectedRoute from "./context/ProtectedRoute";
 import Loader from "./components/ui/custom/Loader"; // global spinner
+import Header from "./components/ui/custom/Header";
 
 // Lazy load routes
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -16,6 +17,7 @@ const Dashboard = lazy(() => import("./pages/DashboardPage"));
 function App() {
   return (
     <Router>
+      <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />

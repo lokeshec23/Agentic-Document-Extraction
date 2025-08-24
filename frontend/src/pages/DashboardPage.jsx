@@ -11,7 +11,6 @@ const Dashboard = () => {
   return (
     <DashboardProvider>
       <div className="flex flex-col h-screen w-full overflow-hidden">
-        <Header />
         <div className="flex flex-1">
           <FileUpload />
           <Suspense fallback={<Loader />}>
