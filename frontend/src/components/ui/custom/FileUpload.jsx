@@ -2,18 +2,32 @@ import React, { useContext, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { DashboardContext } from "../../../context/DashboardContext";
 import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
+import api from "../../../api/axios";
+import axios from "axios";
 
 const FileUpload = () => {
-  const { setFiles, isCollapsed, setIsCollapsed } =
+  const { setFiles, isCollapsed, setIsCollapsed, setMarkdown } =
     useContext(DashboardContext);
   const fileInputRef = useRef(null);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     try {
       const uploadedFiles = Array.from(e.target.files);
       setFiles((prev) => [...prev, ...uploadedFiles]);
+
+      const response = await api.post(
+        "/pdf/upload",
+        { file: uploadedFiles[0] },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Response from getParseData:", response);
+      setMarkdown(response.data.markdown || "");
     } catch (error) {
-      console.error("Error uploading file:", error);
+      console.error("Error handleFileChange function:", error);
     }
   };
 

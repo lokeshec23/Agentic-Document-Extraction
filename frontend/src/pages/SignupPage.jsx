@@ -22,6 +22,7 @@ const SignupPage = () => {
   };
 
   const handleSubmit = async (e) => {
+    debugger;
     e.preventDefault();
     try {
       if (!formData.username || !formData.email || !formData.password) {
@@ -31,6 +32,7 @@ const SignupPage = () => {
 
       const res = await api.post("/auth/signup", formData);
       // notify("success", "Signup successful", "Welcome! You can now log in.");
+      console.log("Signup response: ", res.data);
       navigate("/");
     } catch (error) {
       console.error("Signup failed: ", error);

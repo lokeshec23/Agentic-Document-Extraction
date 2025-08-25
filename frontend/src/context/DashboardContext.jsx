@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import api from "../api/axios";
 
 export const DashboardContext = createContext();
 
@@ -6,12 +7,16 @@ export const DashboardProvider = ({ children }) => {
   // file upload state
   const [files, setFiles] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   useEffect(() => {
     if (files.length !== 0) {
       setIsCollapsed(true);
     }
   }, [files]);
-  // extraction data state
+
+  
+
+  // extraction data stateWWWW
   const [markdown, setMarkdown] = useState(
     `# Example Markdown\n\n- Item 1\n- Item 2`
   );

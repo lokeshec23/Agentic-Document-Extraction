@@ -10,6 +10,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/signup", response_model=TokenOut)
 def signup(data: SignupIn):
+    print("Signup data received:", data)
     if users.find_one({"email": data.email}):
         raise HTTPException(400, "Email already exists")
     res = users.insert_one({
